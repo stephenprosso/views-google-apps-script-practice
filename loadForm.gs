@@ -7,11 +7,17 @@ function loadMainForm() {
 }
 
 
-function createMenu(){
+function createMenu_(){
 
   const ui = SpreadsheetApp.getUi();
   const menu = ui.createMenu("Custom Menu");
   menu.addItem("Open Form", "loadMainForm");
   menu.addToUi();
+
+}
+
+function onOpen(){
+  
+  createMenu_();
 
 }
