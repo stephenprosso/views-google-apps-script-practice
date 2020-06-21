@@ -41,7 +41,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   
   <script>
-  
+  var data;
       function loadView(options){
         var id = typeof options.id ==="undefined" ? "app" : options.id;
         var cb = typeof options.callback ==="undefined" ? function(){} : options.callback;
@@ -51,8 +51,25 @@
           typeof options.params === "undefined" ? cb() : cb(options.params);
         })[options.func]();
       }
+      
+      function setDataForSearch(){
+       google.script.run.withSuccessHandler(function(dataReturned){
+         data = dataReturned.slice();
+       
+       }).getDataForSearch();
+      }
+      
+      function search(){
+         var searchInput = document.getElementById("searchInput").value;
+         var resultsArray = data.filter(function(r){
+           return r[1].indexOf(searchInput) !=== -1;         
+         });
+         var searchResultsBox = searchResults
+               
+      }
+      
       function loadSearchView(){
-       loadView({func: "loadSearchView"});
+       loadView({func: "loadSearchView", callback: setDataForSearch });
       }
       
       function loadAddCustomerView(){
