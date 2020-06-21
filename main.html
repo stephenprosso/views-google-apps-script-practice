@@ -58,22 +58,14 @@
       function loadAddCustomerView(){
        loadView({func: "loadAddCustomerView"});
       }
-      /*function otherFunc(params){     
-       document.getElementById("h1").textContent = params.title;
-      }*/
       
-       function loadView(options){
-        var id = typeof options.id ==="undefined" ? "app" : options.id;
-        var cb = typeof options.callback ==="undefined" ? function(){} : options.callback;
-        
-        google.script.run.withSuccessHandler(function(html){
-          document.getElementById(id).innerHTML = html;
-          typeof options.params === "undefined" ? cb() : cb(options.params);
-        })[options.func]();
-      }        
+      function loadEditCustomerView(){
+       loadView({func: "loadEditCustomerView"});
+      }      
       
       document.getElementById("search-link").addEventListener("click",loadSearchView);
-      document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);
+      document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);      
+      document.getElementById("home-link").addEventListener("click",loadEditCustomerView);
   
   
   </script>
