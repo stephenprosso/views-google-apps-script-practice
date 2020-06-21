@@ -42,10 +42,17 @@
   
   <script>
       function loadSearchView(){
+       loadView({func: "loadSearchView"});
+      }
+      
+       function loadView(options){
         google.script.run.withSuccessHandler(function(html){
           document.getElementById("app").innerHTML = html;
-        }).loadSearchView();
+        })[options.func]();
       }
+      
+      
+      
       
       document.getElementById("search-link").addEventListener("click",loadSearchView);
   
