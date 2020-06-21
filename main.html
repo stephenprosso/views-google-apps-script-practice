@@ -41,14 +41,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   
   <script>
+  
+      function loadView(options){
+        var id = typeof options.id ==="undefined" ? "app" : options.id;
+        var cb = typeof options.callback ==="undefined" ? function(){} : options.callback;
+        
+        google.script.run.withSuccessHandler(function(html){
+          document.getElementById(id).innerHTML = html;
+          typeof options.params === "undefined" ? cb() : cb(options.params);
+        })[options.func]();
+      }
       function loadSearchView(){
-       loadView({func: "loadSearchView", callback: otherFunc, params: {title: "Another Search!!!"} });
+       loadView({func: "loadSearchView"});
       }
       
-      function otherFunc(params){
-      
+      function loadAddCustomerView(){
+       loadView({func: "loadAddCustomerView"});
+      }
+      /*function otherFunc(params){     
        document.getElementById("h1").textContent = params.title;
-      }
+      }*/
       
        function loadView(options){
         var id = typeof options.id ==="undefined" ? "app" : options.id;
@@ -58,12 +70,11 @@
           document.getElementById(id).innerHTML = html;
           typeof options.params === "undefined" ? cb() : cb(options.params);
         })[options.func]();
-      }
-      
-      
-      
+      }        
       
       document.getElementById("search-link").addEventListener("click",loadSearchView);
+      document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);
+  
   
   </script>
   </body>
