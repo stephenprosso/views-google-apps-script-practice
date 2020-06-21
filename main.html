@@ -62,9 +62,26 @@
       function search(){
          var searchInput = document.getElementById("searchInput").value;
          var resultsArray = data.filter(function(r){
-           return r[1].indexOf(searchInput) !=== -1;         
+           return r[1].indexOf(searchInput) !== -1;         
          });
-         var searchResultsBox = searchResults
+         var searchResultsBox = document.getElementById("searchResults");
+         var templateBox = document.getElementById("rowTemplate");
+         var template = templateBox.content;
+         
+        searchResultsBox.innerHTML = "";
+        
+        resultsArray.forEach(function(r){
+         
+           var tr = template.cloneNode(true);
+           var custIDColumn = tr.querySelector(".custID");
+           var firstNameColumn = tr.querySelector(".first-name");
+           var lastNameColumn = tr.querySelector(".last-name");
+           custIDColumn.textContent = r[0];
+           firstNameColumn.textContent = r[1];
+           lastNameColumn.textContent = r[2];
+           searchResultsBox.appendChild(tr);
+         
+         });
                
       }
       
@@ -83,8 +100,14 @@
       document.getElementById("search-link").addEventListener("click",loadSearchView);
       document.getElementById("add-customer-link").addEventListener("click",loadAddCustomerView);      
       document.getElementById("home-link").addEventListener("click",loadEditCustomerView);
-  
-  
+      
+      function inputEventHandler(e){
+       if(e.target.matches("#searchInput")){
+         search();
+        }      
+      }
+      document.getElementById("app").addEventListener("input",inputEventHandler);      
+      
   </script>
   </body>
 </html>
