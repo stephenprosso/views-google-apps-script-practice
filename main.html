@@ -42,12 +42,21 @@
   
   <script>
       function loadSearchView(){
-       loadView({func: "loadSearchView"});
+       loadView({func: "loadSearchView", callback: otherFunc, params: {title: "Another Search!!!"} });
+      }
+      
+      function otherFunc(params){
+      
+       document.getElementById("h1").textContent = params.title;
       }
       
        function loadView(options){
+        var id = typeof options.id ==="undefined" ? "app" : options.id;
+        var cb = typeof options.callback ==="undefined" ? function(){} : options.callback;
+        
         google.script.run.withSuccessHandler(function(html){
-          document.getElementById("app").innerHTML = html;
+          document.getElementById(id).innerHTML = html;
+          typeof options.params === "undefined" ? cb() : cb(options.params);
         })[options.func]();
       }
       
