@@ -4,8 +4,7 @@ function getDataForSearch() {
   return ws.getRange(2,1, ws.getLastRow()-1,3).getValues();
   }
 
-function deleteById() {
-  id=10;
+function deleteById(id) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const ws = ss.getSheetByName("data");
   const custIds = ws.getRange(2,1, ws.getLastRow()-1,1).getValues().map(r => r[0].toString().toLowerCase());

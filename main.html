@@ -101,12 +101,22 @@
       function deleteCustomer(e){
       
         var custID = e.target.dataset.customerId;
-        google.script.run.withSuccessHandler(function(){
-        
-        
-        
+        google.script.run.withSuccessHandler(function(){        
+          e.target.closest(".result-box").remove();                
         }).deleteById(custID);
       
+      }
+      function displayConfirmDelete(e){
+      
+        if(e.target.dataset.buttonState = "delete"){
+          e.target.previousElementSibling.classList.remove("d-none");
+          e.target.textContent = "Cancel";
+          e.target.dataset.buttonState = "cancel";
+         } else {         
+          e.target.previousElementSibling.classList.add("d-none");
+          e.target.textContent = "Delete";
+          e.target.dataset.buttonState = "delete";      
+         }
       }
       
       function loadSearchView(){
@@ -134,9 +144,13 @@
        if(e.target.matches(".delete-button")){
          deleteCustomer(e);
         }      
+       if(e.target.matches(".before-delete-button")){
+         displayConfirmDelete(e);
+        }    
       }
       document.getElementById("app").addEventListener("input",inputEventHandler);      
-      document.getElementById("app").addEventListener("click",clickEventHandler);      
+      document.getElementById("app").addEventListener("click",clickEventHandler); 
+
       
   </script>
   </body>
