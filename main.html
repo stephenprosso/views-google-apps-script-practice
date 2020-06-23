@@ -87,7 +87,10 @@
            var custIDColumn = tr.querySelector(".custID");
            var firstNameColumn = tr.querySelector(".first-name");
            var lastNameColumn = tr.querySelector(".last-name");
+           var deleteButton = tr.querySelector(".delete-button")
+           
            custIDColumn.textContent = r[0];
+           deleteButton.dataset.customerId = r[0];
            firstNameColumn.textContent = r[1];
            lastNameColumn.textContent = r[2];
            searchResultsBox.appendChild(tr);
