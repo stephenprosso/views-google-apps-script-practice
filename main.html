@@ -62,20 +62,19 @@
       function search(){
          var searchInput = document.getElementById("searchInput").value.toString().toLowerCase();
          var searchWords = searchInput.split(/\s+/);
+         var searchColumns = [1,2];
          //and condition with or inside
          
          var resultsArray = data.filter(function(r){
          
          
-            searchWords.every(function(word){
-            
-            });
-         
-         
-         
-         
-           return r[1].toString().toLowerCase().indexOf(searchInput) !== -1;         
+            return searchWords.every(function(word){
+            return searchColumns.some(function(colIndex){
+             return  r[colIndex].toString().toLowerCase().indexOf(searchInput) !== -1;                                        
+              });            
+            });       
          });
+         
          var searchResultsBox = document.getElementById("searchResults");
          var templateBox = document.getElementById("rowTemplate");
          var template = templateBox.content;
