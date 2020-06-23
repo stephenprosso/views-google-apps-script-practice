@@ -65,7 +65,7 @@
          var searchColumns = [1,2];
          //and condition with or inside
          
-         var resultsArray = data.filter(function(r){
+         var resultsArray = searchInput === "" ? [] : data.filter(function(r){
          
          
             return searchWords.every(function(word){
