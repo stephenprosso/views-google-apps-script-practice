@@ -98,6 +98,15 @@
          });
                
       }
+      function deleteCustomer(e){
+      
+        var custID = e.target.dataset.customerId;
+        google.script.run.withSuccessHandler(function(){
+        
+        
+        }).deleteById(custID);
+      
+      }
       
       function loadSearchView(){
        loadView({func: "loadSearchView", callback: setDataForSearch });
@@ -120,7 +129,13 @@
          search();
         }      
       }
+            function clickEventHandler(e){
+       if(e.target.matches(".delete-button")){
+         deleteCustomer();
+        }      
+      }
       document.getElementById("app").addEventListener("input",inputEventHandler);      
+      document.getElementById("app").addEventListener("click",clickEventHandler);      
       
   </script>
   </body>
