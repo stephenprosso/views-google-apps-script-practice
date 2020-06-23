@@ -1,3 +1,3 @@
-function loadMainForm() {
+function myFunction() {
   
 }

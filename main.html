@@ -104,6 +104,7 @@
         google.script.run.withSuccessHandler(function(){
         
         
+        
         }).deleteById(custID);
       
       }
@@ -131,7 +132,7 @@
       }
             function clickEventHandler(e){
        if(e.target.matches(".delete-button")){
-         deleteCustomer();
+         deleteCustomer(e);
         }      
       }
       document.getElementById("app").addEventListener("input",inputEventHandler);      
