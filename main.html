@@ -129,8 +129,16 @@
         document.getElementById("fname").value = customerInfo.firstName;
         document.getElementById("lname").value = customerInfo.lastName;
         document.getElementById("phoneNumber").value = customerInfo.phone;                
-      }).getCustomerByID(params.custID);
+      }).getCustomerById(params.custID);
  
+      
+      }
+      function editCustomer(){
+        google.script.run.withSuccessHandler(function(customerInfo){      
+        document.getElementById("fname").value = customerInfo.firstName;
+        document.getElementById("lname").value = customerInfo.lastName;
+        document.getElementById("phoneNumber").value = customerInfo.phone;                
+      }).editCustomerById(id,customerInfo);
       
       }
       
@@ -165,6 +173,9 @@
        if(e.target.matches(".edit-button")){
          loadView({func: "loadEditCustomerView", callback: afterEditViewLoads, params: {custID: e.target.dataset.customerId} });
         }  
+        if(e.target.matches(".save-changes")){
+         editCustomer()
+        }    
       }
       document.getElementById("app").addEventListener("input",inputEventHandler);      
       document.getElementById("app").addEventListener("click",clickEventHandler); 
