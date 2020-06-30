@@ -102,7 +102,10 @@
       
         var custID = e.target.dataset.customerId;
         google.script.run.withSuccessHandler(function(){        
-          e.target.closest(".result-box").remove();                
+          e.target.closest(".result-box").remove();  
+          var ids = data.map(function(r) {return r[0].toString().toLowerCase() });   
+          var index = ids.indexOf(custID.toString().toLowerCase() );
+          data.splice(index,1);
         }).deleteById(custID);
       
       }
