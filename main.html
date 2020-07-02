@@ -134,10 +134,16 @@
       
       }
       function editCustomer(){
-        google.script.run.withSuccessHandler(function(customerInfo){      
-        document.getElementById("fname").value = customerInfo.firstName;
-        document.getElementById("lname").value = customerInfo.lastName;
-        document.getElementById("phoneNumber").value = customerInfo.phone;                
+         var customerInfo = {};
+         customerInfo.firstName = document.getElementById("fname").value;
+         customerInfo.lastName = document.getElementById("lname").value;
+         customerInfo.phone = document.getElementById("phoneNumber").value;
+        
+         var id = document.getElementById("customer-id").value;
+         
+        console.log(customerInfo);
+        google.script.run.withSuccessHandler(function(res){      
+                        
       }).editCustomerById(id,customerInfo);
       
       }
