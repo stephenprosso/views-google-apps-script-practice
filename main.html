@@ -154,6 +154,23 @@
       
       }
       
+      function addCustomer(){
+         var customerInfo = {};
+         customerInfo.firstName = document.getElementById("fname").value;
+         customerInfo.lastName = document.getElementById("lname").value;
+         customerInfo.phone = document.getElementById("phoneNumber").value;
+         
+         google.script.run.withSuccessHandler(function(){      
+          /* document.getElementById("save-success-message").classList.remove("invisible");
+           
+           setTimeout(function(){
+           document.getElementById("save-success-message").classList.add("invisible");
+           
+           },2000);*/
+         }).addCustomer(customerInfo);
+        
+      }
+      
       function loadSearchView(){
        loadView({func: "loadSearchView", callback: setDataForSearch });
       }
@@ -188,6 +205,9 @@
         if(e.target.matches("#save-changes")){
          editCustomer();
         }    
+       if(e.target.matches("#add-customer-button")){
+         addCustomer();
+        } 
       }
       document.getElementById("app").addEventListener("input",inputEventHandler);      
       document.getElementById("app").addEventListener("click",clickEventHandler); 
