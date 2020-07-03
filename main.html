@@ -161,12 +161,14 @@
          customerInfo.phone = document.getElementById("phoneNumber").value;
          
          google.script.run.withSuccessHandler(function(){      
-          /* document.getElementById("save-success-message").classList.remove("invisible");
-           
+           document.getElementById("save-success-message").classList.remove("invisible");           
            setTimeout(function(){
            document.getElementById("save-success-message").classList.add("invisible");
-           
-           },2000);*/
+           },2000);
+            document.getElementById("fname").value = "";
+            document.getElementById("lname").value = "";
+            document.getElementById("phoneNumber").value = "";
+            
          }).addCustomer(customerInfo);
         
       }
@@ -205,6 +207,9 @@
         if(e.target.matches("#save-changes")){
          editCustomer();
         }    
+        if(e.target.matches("#cancel-changes")){
+         loadSearchView();
+        }
        if(e.target.matches("#add-customer-button")){
          addCustomer();
         } 
