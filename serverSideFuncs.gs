@@ -47,25 +47,23 @@ function editCustomerById(id,customerInfo){
 }
 
 function addCustomer(customerInfo){
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const ws = ss.getSheetByName("data");
-    
-  //lines 54 - 59 are the first way i learned to add a new line with unique ID
+    const ss = SpreadsheetApp.openByUrl(url);
+    const ws = ss.getSheetByName("Data");  
+    //the first way i learned to add a new line with unique ID
     //var ids = ws.getRange(2, 1,ws.getLastRow()-1,1).getValues().map(function(r){return r[0]});
-  //reworte the above line to use ES6 
-   const ids =ws.getRange(2, 1,ws.getLastRow()-1,1).getValues().map( r => r[0]);
+    //re-wrote the above line to use ES6 
+    const ids =ws.getRange(2, 1,ws.getLastRow()-1,1).getValues().map( r => r[0]);
     //find the max id from this list
-    var maxID = Math.max.apply(null,ids);
-    var newId = maxID+1; 
- 
-  //lines 61 - 66 are a new way to add a row with unique id
-  /*const uniqueIds = ws.getRange(2, 1,ws.getLastRow()-1,1).getValues();
-  var maxNum=0;
-  uniqueIds.forEach(r => {
-       maxNum = r[0] > maxNum ? r[0] : maxNum
-          });
-  var newId = maxNum +1;*/
-  
+    const maxID = Math.max.apply(null,ids);
+    const newId = maxID+1;  
+    //new way to add a row with unique id
+    /*const uniqueIds = ws.getRange(2, 1,ws.getLastRow()-1,1).getValues();
+     var maxNum=0;
+     uniqueIds.forEach(r => {
+          maxNum = r[0] > maxNum ? r[0] : maxNum
+             });
+     var newId = maxNum +1;*/ 
   ws.appendRow([newId,customerInfo.firstName,customerInfo.lastName,customerInfo.phone]);
 }
+
   

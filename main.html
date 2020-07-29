@@ -12,6 +12,17 @@
     .nav-link {
        cursor:pointer;
     }
+    
+    #loading {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     background-color: rgba(255,255,255,0.7);
+     z-index: 1000;
+    
+    }
     </style>
   </head>
   <body>
@@ -32,7 +43,16 @@
       <div id="app"></div>
       <!-- Content Here! -->
   
-  </div>
+      </div>
+      <!-- start Loading Spinner -->
+
+          <div id="loading" class="d-flex justify-content-center align-items-center invisible">
+              <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+              </div>
+          </div>
+
+      <!-- END Loading Spinner -->
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -192,6 +212,14 @@
           linkEl.classList.remove("active");
         });
         e.target.classList.add("active");
+      }
+      
+      function loadingStart(){
+        document.getElementById("loading").classList.remove("invisible");
+      }
+      
+      function loadingEnd(){
+      document.getElementById("loading").classList.add("invisible");     
       }
       
       document.getElementById("search-link").addEventListener("click",loadSearchView);
