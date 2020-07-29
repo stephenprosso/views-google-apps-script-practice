@@ -28,11 +28,11 @@
   <body>
   
     <div class="container">
-     <nav id="navigation">
+     <nav id="navigation" class="mb-3">
       <ul class="nav nav-tabs main-nav">
 
         <li class="nav-item">
-          <div class="nav-link active" id="search-link">Search</div>
+          <div class="nav-link active" id="search-link">Find Customer</div>
         </li>
         <li class="nav-item">
           <div class="nav-link" id="add-customer-link">Add Customer</div>
@@ -161,42 +161,43 @@
      
       }
       function editCustomer(){
+         loadingStart();
          var customerInfo = {};
          customerInfo.firstName = document.getElementById("fname").value;
          customerInfo.lastName = document.getElementById("lname").value;
          customerInfo.phone = document.getElementById("phoneNumber").value;
         
          var id = document.getElementById("customer-id").value;
-         
-        loadingStart();
-        google.script.run.withSuccessHandler(function(res){      
+              
+        google.script.run.withSuccessHandler(function(res){
+           loadingEnd();
            document.getElementById("save-success-message").classList.remove("invisible");        
            setTimeout(function(){
            document.getElementById("save-success-message").classList.add("invisible");         
            },2000);
-           loadingEnd();
+          
            
       }).editCustomerById(id,customerInfo);
       
       }
       
       function addCustomer(){
+      loadingStart(); 
          var customerInfo = {};
          customerInfo.firstName = document.getElementById("fname").value;
          customerInfo.lastName = document.getElementById("lname").value;
          customerInfo.phone = document.getElementById("phoneNumber").value;
          
-         google.script.run.withSuccessHandler(function(){      
-           document.getElementById("save-success-message").classList.remove("invisible");           
-           setTimeout(function(){
-           document.getElementById("save-success-message").classList.add("invisible");
-           },2000);
-            document.getElementById("fname").value = "";
-            document.getElementById("lname").value = "";
-            document.getElementById("phoneNumber").value = "";
-            
-         }).addCustomer(customerInfo);
-        
+           google.script.run.withSuccessHandler(function(){ 
+             document.getElementById("fname").value = "";
+             document.getElementById("lname").value = "";
+             document.getElementById("phoneNumber").value = "";
+             document.getElementById("save-success-message").classList.remove("invisible");  
+             loadingEnd();
+             setTimeout(function(){
+             document.getElementById("save-success-message").classList.add("invisible");
+             },2000);                       
+           }).addCustomer(customerInfo);        
       }
       
       function loadSearchView(){
