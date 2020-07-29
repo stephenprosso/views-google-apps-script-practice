@@ -63,22 +63,26 @@
   <script>
   var data;
       function loadView(options){
+             
         var id = typeof options.id ==="undefined" ? "app" : options.id;
         var cb = typeof options.callback ==="undefined" ? function(){} : options.callback;
-        
+        loadingStart(); 
         google.script.run.withSuccessHandler(function(html){
           document.getElementById(id).innerHTML = html;
+          loadingEnd();
           typeof options.params === "undefined" ? cb() : cb(options.params);
+          
         })[options.func]();
       }
       
       function setDataForSearch(){
+        loadingStart();
        google.script.run.withSuccessHandler(function(dataReturned){
          data = dataReturned.slice();
-       
+         loadingEnd();
        }).getDataForSearch();
       }
-      
+            
       function search(){
          var searchInput = document.getElementById("searchInput").value.toString().toLowerCase();
          var searchWords = searchInput.split(/\s+/);
@@ -123,11 +127,13 @@
       function deleteCustomer(e){
       
         var custID = e.target.dataset.customerId;
+        loadingStart();
         google.script.run.withSuccessHandler(function(){        
           e.target.closest(".result-box").remove();  
           var ids = data.map(function(r) {return r[0].toString().toLowerCase() });   
           var index = ids.indexOf(custID.toString().toLowerCase() );
           data.splice(index,1);
+          loadingEnd();
         }).deleteById(custID);
       
       }
@@ -144,14 +150,15 @@
       }
       
       function afterEditViewLoads(params) {
+      loadingStart();
       document.getElementById("customer-id").value = params.custID;
       google.script.run.withSuccessHandler(function(customerInfo){      
-        document.getElementById("fname").value = customerInfo.firstName;
-        document.getElementById("lname").value = customerInfo.lastName;
-        document.getElementById("phoneNumber").value = customerInfo.phone;                
-      }).getCustomerById(params.custID);
- 
-      
+          document.getElementById("fname").value = customerInfo.firstName;
+          document.getElementById("lname").value = customerInfo.lastName;
+          document.getElementById("phoneNumber").value = customerInfo.phone;
+          loadingEnd();
+        }).getCustomerById(params.custID);
+     
       }
       function editCustomer(){
          var customerInfo = {};
@@ -161,14 +168,13 @@
         
          var id = document.getElementById("customer-id").value;
          
-        console.log(customerInfo);
+        loadingStart();
         google.script.run.withSuccessHandler(function(res){      
-           document.getElementById("save-success-message").classList.remove("invisible");
-           
+           document.getElementById("save-success-message").classList.remove("invisible");        
            setTimeout(function(){
-           document.getElementById("save-success-message").classList.add("invisible");
-           
+           document.getElementById("save-success-message").classList.add("invisible");         
            },2000);
+           loadingEnd();
            
       }).editCustomerById(id,customerInfo);
       

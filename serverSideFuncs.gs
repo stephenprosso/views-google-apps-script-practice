@@ -47,8 +47,8 @@ function editCustomerById(id,customerInfo){
 }
 
 function addCustomer(customerInfo){
-    const ss = SpreadsheetApp.openByUrl(url);
-    const ws = ss.getSheetByName("Data");  
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ws = ss.getSheetByName("data"); 
     //the first way i learned to add a new line with unique ID
     //var ids = ws.getRange(2, 1,ws.getLastRow()-1,1).getValues().map(function(r){return r[0]});
     //re-wrote the above line to use ES6 
