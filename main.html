@@ -84,6 +84,7 @@
       }
             
       function search(){
+      
          var searchInput = document.getElementById("searchInput").value.toString().toLowerCase();
          var searchWords = searchInput.split(/\s+/);
          var searchColumns = [1,2];
@@ -98,6 +99,9 @@
               });            
             });       
          });
+         var recordCount = searchInput === "" ? "" : "Qty:" + resultsArray.length;
+         
+         document.getElementById("searchCounter").textContent = recordCount;
          
          var searchResultsBox = document.getElementById("searchResults");
          var templateBox = document.getElementById("rowTemplate");
