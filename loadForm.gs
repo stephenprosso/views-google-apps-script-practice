@@ -12,10 +12,19 @@ function loadMainForm() {
 function createMenu_(){
 
   const ui = SpreadsheetApp.getUi();
-  const menu = ui.createMenu("Manage Data");
-  menu.addItem("Open Form", "loadMainForm");
+  const menu = ui.createMenu("Custom - Manage Data");
+  menu.addItem("Edit Customers", "loadMainForm");
+  menu.addItem("Customer Sidebar", "showSidebar");
   menu.addToUi();
 
+}
+
+function showSidebar() {
+  const html = HtmlService.createHtmlOutputFromFile('main')
+ 
+      html.setTitle('My custom sidebar').setWidth(300);
+  SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+      .showSidebar(html);
 }
 
 function onOpen(){
